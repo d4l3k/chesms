@@ -1,6 +1,11 @@
 var chess = require('chess'),
-    twilio = require('twilio')('AC7bb2f43a783c6c974a8571d786605fa2', process.env.AUTH_TOKEN),
-    express = require('express');
+    twilio = require('twilio'),
+    express = require('express'),
+    qs = require('querystring');
+
+twilioClient = twilio('AC7bb2f43a783c6c974a8571d786605fa2', process.env.AUTH_TOKEN);
+
+
 var app = express();
 
 
@@ -42,7 +47,6 @@ twilio.sendMessage({
 */
 
 app.post('/sms/reply/', function (req, res) {
-  res.send('POST reqply', req);
   var body = '';
 
   req.on('data', function (data) {
@@ -53,6 +57,8 @@ app.post('/sms/reply/', function (req, res) {
 
     var POST = qs.parse(body);
 
+    console.log('text body', POST);
+
     //validate incoming request is from twilio using your auth token and the header from Twilio
     var token = process.env.AUTH_TOKEN,
     header = req.headers['x-twilio-signature'];
@@ -61,7 +67,7 @@ app.post('/sms/reply/', function (req, res) {
     if (twilio.validateRequest(token, header, 'http://nicki.fn.lc:8183/sms/reply/', POST)) {
       //generate a TwiML response
       var resp = new twilio.TwimlResponse();
-    resp.say('hello, twilio!');
+    resp.message('hello, twilio!');
 
     res.writeHead(200, { 'Content-Type':'text/xml' });
     res.end(resp.toString());
