@@ -93,7 +93,9 @@ app.post('/sms/reply/', function (req, res) {
 
           respMessage = 'Add your friends phone # to start a game';
 
-        }else{
+        }
+
+        else{
           var currGame = games[phoneNumbers[POST.To].gameId];
           var smsBody = POST.Body.replace(/^\s+|\s+$/g, '');
 
@@ -107,7 +109,9 @@ app.post('/sms/reply/', function (req, res) {
             }else {
               respMessage = 'incorrect number. Try adding a correct friends #';
             }
-          }else if(currGame.players.length === 1){
+          }
+          //Play Chess Game
+          else{
             //If we lose or stalemate
             if(currGame.board.isCheckmate || currGame.board.isStalemate){
               //remove game
