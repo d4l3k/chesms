@@ -132,14 +132,14 @@ app.post('/sms/reply/', function (req, res) {
 
                 console.log(smsBody);
                 //If we have a move command
-                if(smsBody.split(' ')[1] === 'to'){
-                  var piece_pos = smsBody.split(' ')[0];
+                if(smsBody.split(' ')[0] === 'move'){
+                  // var piece_pos = smsBody.split(' ')[0];
 
-                  var move_pos = smsBody.split(' ')[2];
+                  var move_pos = smsBody.split(' ')[1];
 
                     //Error message
                     try{
-                      currGame.board.move(piece_pos);
+                      // currGame.board.move(piece_pos);
                       currGame.board.move(move_pos);
                     }catch(err){
                       console.log(err);
