@@ -130,7 +130,7 @@ app.post('/sms/reply/', function (req, res) {
               //TODO: need to do proper validation
               if(smsBody.length > 4){
 
-                console.log(smsBody.slice(2,3));
+                console.log(smsBody);
                 //If we have a move command
                 if(smsBody.slice(2,3) === 'to'){
                   var piece_pos = smsBody.slice(0,1);
@@ -147,7 +147,6 @@ app.post('/sms/reply/', function (req, res) {
                       return;
                     }
                     resp.message('Piece moved from '+piece_pos+' to '+move_pos);
-
                 }else if(smsBody.slice(0,3) === 'undo'){
                   currGame.board.undo();
                   resp.message('Move successfully undo');
