@@ -74,7 +74,9 @@ app.post('/sms/reply/', function (req, res) {
     if (twilio.validateRequest(token, header, 'http://nicki.fn.lc:8183/sms/reply/', POST)) {
 
         if(!phoneNumbers.hasOwnProperty(POST.To)){
-          phoneNumbers[POST.To].gameId = uuid.v1();
+          phoneNumbers[POST.To] = {
+            gameId: uuid.v1(),
+          };
 
           if(board.isCheckmate){
             res.send('Checkmate. Game Over');
@@ -86,6 +88,7 @@ app.post('/sms/reply/', function (req, res) {
             delete phoneNumbers[POST.To];
             res.send('Start again?');
           }
+          var currGameId = phoneNumbers[POST.To].gameId; 
 
           //create new game
           games[currGameId].gc = chess.create();
