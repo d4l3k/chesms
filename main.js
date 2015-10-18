@@ -143,7 +143,7 @@ app.post('/sms/reply/', function (req, res) {
                       currGame.board.move(piece_pos, move_pos);
                     }catch(err){
                       console.log(err);
-                      res.message('Error: '+err.message);
+                      resp.message('Error: '+err.message);
                       res.writeHead(200, { 'Content-Type':'text/xml' });
                       res.end(resp.toString());
                       return;
