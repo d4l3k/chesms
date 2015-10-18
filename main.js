@@ -88,35 +88,42 @@ app.post('/sms/reply/', function (req, res) {
           res.send('Start again?');          
         }
 
+        //generate a TwiML response
+        var resp = new twilio.TwimlResponse();
+
         //if we have a valid message
         if(smsBody === 6){
 
+          //If we have a move command
           if(smsBody.slice(2,3) === 'to'){
             var piece_pos = smsBody.slice(0,1);
 
             var move_pos = smsBody.reverse().slice(0,1);
 
-            curr_gc.move(piece_pos, move_pos);
+            //Error message
+            try{
+              curr_gc.move(piece_pos, move_pos);
+            }catch(err){
+              resp.message('Error'+err.message); 
+            }else{
+              resp.message('Piece moved from '+piece_pos+' to '+move_pos);
+            }
 
-            //generate a TwiML response
-            var resp = new twilio.TwimlResponse();
-
-            resp.message('Piece moved from '+piece_pos+' to '+move_pos);
-
-            res.writeHead(200, { 'Content-Type':'text/xml' });
-            res.end(resp.toString());
+          }else if(smsBody.slice(0,3) === 'undo'){
+            curr_gc.undo();
+            resp.message('Successful undo');
           }
+
+
+
         }else{
-          //generate a TwiML response
-          var resp = new twilio.TwimlResponse();
-
           resp.message('Board\n' + renderBoard(gc.getStatus()));
-
-          res.writeHead(200, { 'Content-Type':'text/xml' });
-          res.end(resp.toString());
         }
       }
 
+      //Write headers
+      res.writeHead(200, { 'Content-Type':'text/xml' });
+      res.end(resp.toString());
 
 
       
