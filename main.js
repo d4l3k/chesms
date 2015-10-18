@@ -73,11 +73,6 @@ app.post('/sms/reply/', function (req, res) {
     //validateRequest returns true if the request originated from Twilio
     if (twilio.validateRequest(token, header, 'http://nicki.fn.lc:8183/sms/reply/', POST)) {
 
-      if(phoneNumbers.hasOwnProperty(POST.To)){
-        phoneNumbers[POST.To].gc = chess.create();
-      }else{
-        var curr_gc = phoneNumbers[POST.To].gc;
-
         if(!phoneNumbers.hasOwnProperty(POST.To)){
           phoneNumbers[POST.To].gameId = uuid.v1();
 
@@ -101,18 +96,19 @@ app.post('/sms/reply/', function (req, res) {
 
         }else{
           var currGame = games[phoneNumbers[POST.To].gameId];
-
-    
-          var curr_gc = games[game_id].gc;
           var smsBody = POST.Body.replace(/^\s+|\s+$/g, '');
+
           //generate a TwiML response
           var resp = new twilio.TwimlResponse();
           var respMessage = '';
 
           //Check if we should add opponent or not
           if(currGame.players.length === 1){
+
+            //Add person
             if(smsBody.length === 10){
               games[currGameId].push(smsBody); 
+              respMessage = 'Opponent with # '+smsBody+' successfully added';
             }else {
               respMessage = 'incorrect number. Try adding a correct friends #';
             }
@@ -144,15 +140,17 @@ app.post('/sms/reply/', function (req, res) {
 
                     //Error message
                     try{
-                      curr_gc.move(piece_pos, move_pos);
+                      currGame.move(piece_pos, move_pos);
                     }catch(err){
                       resp.message('Error'+err.message);
+                      res.writeHead(200, { 'Content-Type':'text/xml' });
+                      res.end(resp.toString());
                       return;
                     }
                     resp.message('Piece moved from '+piece_pos+' to '+move_pos);
 
                 }else if(smsBody.slice(0,3) === 'undo'){
-                  curr_gc.undo();
+                  currGame.undo();
                   resp.message('Move successfully undo');
                 }
               }else{
@@ -163,7 +161,7 @@ app.post('/sms/reply/', function (req, res) {
           }
 
         }
-      }
+
 
       resp.message(respMessage); 
       //Write headers
