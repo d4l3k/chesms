@@ -1,7 +1,8 @@
 var chess = require('chess'),
     twilio = require('twilio'),
     express = require('express'),
-    qs = require('querystring');
+    qs = require('querystring'),
+    uuid = require('node-uuid');
 
 var renderBoard = require('./lib/chess-renderer.js').renderBoard;
 
@@ -50,6 +51,8 @@ twilio.sendMessage({
 });
 */
 var phoneNumbers = {};
+
+var games = {};
 app.post('/sms/reply/', function (req, res) {
   var body = '';
 
@@ -69,63 +72,89 @@ app.post('/sms/reply/', function (req, res) {
 
     //validateRequest returns true if the request originated from Twilio
     if (twilio.validateRequest(token, header, 'http://nicki.fn.lc:8183/sms/reply/', POST)) {
-      
-      if(phoneNumbers.hasOwnProperty(POST.To)){
-        phoneNumbers[POST.To].gc = chess.create();
+    
+
+      if(!phoneNumbers.hasOwnProperty(POST.To)){
+        phoneNumbers[POST.To].gameId = uuid.v1();
+
+        var currGameId = phoneNumbers[POST.To].gameId;
+
+        //create new game
+        games[currGameId].gc = chess.create();
+        games[currGameId].players = [];
+        games[currGameId].players.push(POST.To); 
+
+        respMessage = 'Add your friends phone # to start a game';
+
       }else{
-        var curr_gc = phoneNumbers[POST.To].gc;
+        var currGame = games[phoneNumbers[POST.To].gameId];
 
+  
+        var curr_gc = games[game_id].gc;
         var smsBody = POST.Body.replace(/^\s+|\s+$/g, '');
-
-        if(board.isCheckmate){
-          res.send('Checkmate. Game Over');
-          delete phoneNumbers[POST.To];
-          res.send('Start again?');    
-          
-        }else if(board.isStalemate){
-          res.send('Stalemate. Game Over');
-          delete phoneNumbers[POST.To];
-          res.send('Start again?');          
-        }
 
         //generate a TwiML response
         var resp = new twilio.TwimlResponse();
+        var respMessage = '';
 
-        //if we have a valid message
-        if(smsBody === 6){
-
-          //If we have a move command
-          if(smsBody.slice(2,3) === 'to'){
-            var piece_pos = smsBody.slice(0,1);
-
-            var move_pos = smsBody.reverse().slice(0,1);
-
-            //Error message
-            try{
-              curr_gc.move(piece_pos, move_pos);
-            }catch(err){
-              resp.message('Error'+err.message); 
-            }else{
-              resp.message('Piece moved from '+piece_pos+' to '+move_pos);
-            }
-
-          }else if(smsBody.slice(0,3) === 'undo'){
-            curr_gc.undo();
-            resp.message('Successful undo');
+        //Check if we should add opponent or not
+        if(currGame.players.length === 1){
+          if(smsBody.length === 10){
+            games[currGameId].push(smsBody); 
+          }else {
+            respMessage = 'incorrect number. Try adding a correct friends #';
           }
+        }else if(currGame.players.length === 1){
+          //If we lose or stalemate
+          if(board.isCheckmate || board.isStalemate){
+            //remove game
+            delete game[phoneNumbers[POST.To].gameId];
 
+            if(board.isCheckmate){
+              respMessage = 'Checkmate. Game Over'
+            }else {
+              respMessage = 'Stalemate. Gameover'     
+            }
+          }
+          //If we aren't losing
+          else{
 
+            //if we have a valid message
+            //TODO: need to do proper validation
+            if(smsBody.length > 4){
 
-        }else{
-          resp.message('Board\n' + renderBoard(gc.getStatus()));
+              //If we have a move command
+              if(smsBody.slice(2,3) === 'to'){
+                var piece_pos = smsBody.slice(0,1);
+
+                var move_pos = smsBody.reverse().slice(0,1);
+
+                //Error message
+                try{
+                  curr_gc.move(piece_pos, move_pos);
+                }catch(err){
+                  resp.message('Error'+err.message); 
+                }else{
+                  resp.message('Piece moved from '+piece_pos+' to '+move_pos);
+                }
+
+              }else if(smsBody.slice(0,3) === 'undo'){
+                curr_gc.undo();
+                resp.message('Move successfully undo');
+              }
+            }else{
+
+              resp.message('Board\n' + renderBoard(gc.getStatus()));
+            }
+          }
         }
+
       }
 
+      resp.message(respMessage); 
       //Write headers
       res.writeHead(200, { 'Content-Type':'text/xml' });
       res.end(resp.toString());
-
-
       
     }
     else {
