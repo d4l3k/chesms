@@ -122,7 +122,6 @@ app.post('/sms/reply/', function (req, res) {
               }else {
                 respMessage = 'Stalemate. Gameover'     
               }
-
             }
             //If we aren't losing
             else{
@@ -130,6 +129,8 @@ app.post('/sms/reply/', function (req, res) {
               //if we have a valid message
               //TODO: need to do proper validation
               if(smsBody.length > 4){
+
+                debugger;
 
                 //If we have a move command
                 if(smsBody.slice(2,3) === 'to'){
