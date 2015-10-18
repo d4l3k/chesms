@@ -1,5 +1,8 @@
 var chess = require('chess'),
-    twilio = require('twilio')('ACCOUNT_SID', 'AUTH_TOKEN');
+    twilio = require('twilio')('AC7bb2f43a783c6c974a8571d786605fa2', process.env.AUTH_TOKEN),
+    express = require('express');
+var app = express();
+
 
 // create a game client
 var gc = chess.create(),
@@ -16,6 +19,7 @@ m = gc.move('a4');
 // the opposing side's available moves
 status = gc.getStatus();
 
+/*
 twilio.sendMessage({
 
   to:'+16515556677', // Any number Twilio can deliver to
@@ -35,10 +39,43 @@ twilio.sendMessage({
 
   }
 });
-setInterval(function() {
-  client.messages.list(function(err, data) {
-    data.messages.forEach(function(message) {
-      console.log(message.body);
-    });
+*/
+
+app.post('/sms/reply/', function (req, res) {
+  res.send('POST reqply', req);
+  var body = '';
+
+  req.on('data', function (data) {
+    body += data;
   });
-}, 1000);
+
+  req.on('end', function () {
+
+    var POST = qs.parse(body);
+
+    //validate incoming request is from twilio using your auth token and the header from Twilio
+    var token = process.env.AUTH_TOKEN,
+    header = req.headers['x-twilio-signature'];
+
+    //validateRequest returns true if the request originated from Twilio
+    if (twilio.validateRequest(token, header, 'http://nicki.fn.lc:8183/sms/reply/', POST)) {
+      //generate a TwiML response
+      var resp = new twilio.TwimlResponse();
+    resp.say('hello, twilio!');
+
+    res.writeHead(200, { 'Content-Type':'text/xml' });
+    res.end(resp.toString());
+  }
+    else {
+      res.writeHead(403, { 'Content-Type':'text/plain' });
+      res.end('you are not twilio - take a hike.');
+    }
+  });
+});
+
+var server = app.listen(8183, function () {
+  var host = server.address().address;
+  var port = server.address().port;
+
+  console.log('CheSMS listening at http://%s:%s', host, port);
+});
