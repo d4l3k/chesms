@@ -130,8 +130,7 @@ app.post('/sms/reply/', function (req, res) {
               //TODO: need to do proper validation
               if(smsBody.length > 4){
 
-                debugger;
-
+                console.log(smsBoy.slice(2,3));
                 //If we have a move command
                 if(smsBody.slice(2,3) === 'to'){
                   var piece_pos = smsBody.slice(0,1);
