@@ -77,24 +77,24 @@ app.post('/sms/reply/', function(req, res) {
             var resp = new twilio.TwimlResponse();
             var respMessage = '';
 
-            if (!phoneNumbers.hasOwnProperty(POST.To)) {
-                phoneNumbers[POST.To] = {
+            if (!phoneNumbers.hasOwnProperty(POST.From)) {
+                phoneNumbers[POST.From] = {
                     gameId: uuid.v1(),
                 };
 
-                var currGameId = phoneNumbers[POST.To].gameId;
+                var currGameId = phoneNumbers[POST.From].gameId;
 
                 //create new game
                 games[currGameId] = {
                     board: chess.create(),
                     players: [],
                 };
-                games[currGameId].players.push(POST.To);
+                games[currGameId].players.push(POST.From);
 
                 respMessage = 'Add your friends phone # to start a game';
 
             } else {
-                var currGame = games[phoneNumbers[POST.To].gameId];
+                var currGame = games[phoneNumbers[POST.From].gameId];
                 var smsBody = POST.Body.replace(/^\s+|\s+$/g, '');
 
                 //Check if we should add opponent or not
@@ -102,7 +102,9 @@ app.post('/sms/reply/', function(req, res) {
 
                     //Add person
                     if (smsBody.length === 10) {
-                        currGame.players.push(smsBody);
+                        var number = '+1' + smsBody;
+                        phoneNumbers[number] = phoneNumbers[POST.From];
+                        currGame.players.push(number);
                         respMessage = 'Opponent with # ' + smsBody + ' successfully added\n' + renderBoard(currGame.board.getStatus());
                     } else {
                         respMessage = 'incorrect number. Try adding a correct friends #';
@@ -113,7 +115,7 @@ app.post('/sms/reply/', function(req, res) {
                     //If we lose or stalemate
                     if (currGame.board.isCheckmate || currGame.board.isStalemate) {
                         //remove game
-                        delete game[phoneNumbers[POST.To].gameId];
+                        delete game[phoneNumbers[POST.From].gameId];
 
                         if (currGame.board.isCheckmate) {
                             respMessage = 'Checkmate. Game Over'
@@ -138,7 +140,7 @@ app.post('/sms/reply/', function(req, res) {
 
                                 //Error message
                                 try {
-                                    currGame.board.move(move_pos);
+                                    currGame.lastMove = currGame.board.move(move_pos);
                                 } catch (err) {
                                     console.log(err);
                                     resp.message('Error: ' + err);
@@ -151,8 +153,8 @@ app.post('/sms/reply/', function(req, res) {
                                 console.log('piece moved');
                                 respMessage = renderBoard(currGame.board.getStatus());
                             } else if (cmd === 'undo') {
-                                currGame.board.undo();
-                                respMessage = 'Move successfully undo';
+                                currGame.lastMove.undo();
+                                respMessage = 'Move successfully undo\n' + renderBoard(currGame.board.getStatus());
                             } else if (cmd === 'moves') {
                                 respMessage = Object.keys(currGame.board.getStatus().notatedMoves).join(' ');
                             }
@@ -161,7 +163,18 @@ app.post('/sms/reply/', function(req, res) {
                         }
                     }
                 }
-
+                currGame.players.forEach(function(player) {
+                  if (player === POST.From) {
+                    return;
+                  }
+                  twilioClient.messages.create({
+                    body: respMessage,
+                    to: player,
+                    from: "+12065677559"
+                  }, function(err, sms) {
+                    console.log(sms);
+                  });
+                });
             }
 
 
