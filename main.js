@@ -35,4 +35,10 @@ twilio.sendMessage({
 
   }
 });
-
+setInterval(function() {
+  client.messages.list(function(err, data) {
+    data.messages.forEach(function(message) {
+      console.log(message.body);
+    });
+  });
+}, 1000);
