@@ -142,11 +142,13 @@ app.post('/sms/reply/', function (req, res) {
                     try{
                       currGame.board.move(piece_pos, move_pos);
                     }catch(err){
-                      resp.message('Error'+err.message);
+                      console.log(err);
+                      resp.message('Error: '+err.message);
                       res.writeHead(200, { 'Content-Type':'text/xml' });
                       res.end(resp.toString());
                       return;
                     }
+                    console.log('piece moved');
                     resp.message('Piece moved from '+piece_pos+' to '+move_pos);
                 }else if(smsBody.split(' ')[0] === 'undo'){
                   currGame.board.undo();
