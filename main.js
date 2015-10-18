@@ -102,7 +102,7 @@ app.post('/sms/reply/', function (req, res) {
 
             //Add person
             if(smsBody.length === 10){
-              games[currGameId].players.push(smsBody); 
+              currGame.players.push(smsBody); 
               respMessage = 'Opponent with # '+smsBody+' successfully added';
             }else {
               respMessage = 'incorrect number. Try adding a correct friends #';
