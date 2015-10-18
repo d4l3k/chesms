@@ -85,8 +85,10 @@ app.post('/sms/reply/', function (req, res) {
           var currGameId = phoneNumbers[POST.To].gameId; 
 
           //create new game
-          games[currGameId].board = chess.create();
-          games[currGameId].players = [];
+          games[currGameId] = {
+            board: chess.create(),
+            players: [],
+          };
           games[currGameId].players.push(POST.To); 
 
           respMessage = 'Add your friends phone # to start a game';
