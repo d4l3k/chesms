@@ -131,7 +131,6 @@ app.post('/sms/reply/', function (req, res) {
               if(smsBody.length >= 4){
 
                 console.log(smsBody);
-                console.log(smsBody.slice(2,4));
                 //If we have a move command
                 if(smsBody.split(' ')[1] === 'to'){
                   var piece_pos = smsBody.split(' ')[0];
@@ -153,6 +152,11 @@ app.post('/sms/reply/', function (req, res) {
                 }else if(smsBody.split(' ')[0] === 'undo'){
                   currGame.board.undo();
                   resp.message('Move successfully undo');
+                }else if(smsBody.split(' ')[0] === 'moves'){
+                  currGame.board.getStatus().validMoves.forEach(function(elem){
+                    respMessage += elem;
+                    respMessage += '\n';
+                  });
                 }
               }else{
 
