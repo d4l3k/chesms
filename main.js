@@ -13,21 +13,21 @@ var app = express();
 
 
 // create a game client
-var gc = chess.create(),
+var board = chess.create(),
     m = null,
     status = null;
 
 // look at the valid moves
-status = gc.getStatus();
+status = board.getStatus();
 
 console.log(renderBoard(status));
 
 // make a move
-m = gc.move('a4');
+m = board.move('a4');
 
 // look at the status again after the move to see
 // the opposing side's available moves
-status = gc.getStatus();
+status = board.getStatus();
 
 /*
 twilio.sendMessage({
@@ -73,25 +73,19 @@ app.post('/sms/reply/', function (req, res) {
     //validateRequest returns true if the request originated from Twilio
     if (twilio.validateRequest(token, header, 'http://nicki.fn.lc:8183/sms/reply/', POST)) {
 
+        //generate a TwiML response
+        var resp = new twilio.TwimlResponse();
+        var respMessage = '';
+
         if(!phoneNumbers.hasOwnProperty(POST.To)){
           phoneNumbers[POST.To] = {
             gameId: uuid.v1(),
           };
 
-          if(board.isCheckmate){
-            res.send('Checkmate. Game Over');
-            delete phoneNumbers[POST.To];
-            res.send('Start again?');
-
-          }else if(board.isStalemate){
-            res.send('Stalemate. Game Over');
-            delete phoneNumbers[POST.To];
-            res.send('Start again?');
-          }
           var currGameId = phoneNumbers[POST.To].gameId; 
 
           //create new game
-          games[currGameId].gc = chess.create();
+          games[currGameId].board = chess.create();
           games[currGameId].players = [];
           games[currGameId].players.push(POST.To); 
 
@@ -100,10 +94,6 @@ app.post('/sms/reply/', function (req, res) {
         }else{
           var currGame = games[phoneNumbers[POST.To].gameId];
           var smsBody = POST.Body.replace(/^\s+|\s+$/g, '');
-
-          //generate a TwiML response
-          var resp = new twilio.TwimlResponse();
-          var respMessage = '';
 
           //Check if we should add opponent or not
           if(currGame.players.length === 1){
@@ -117,11 +107,11 @@ app.post('/sms/reply/', function (req, res) {
             }
           }else if(currGame.players.length === 1){
             //If we lose or stalemate
-            if(board.isCheckmate || board.isStalemate){
+            if(currGame.board.isCheckmate || currGame.board.isStalemate){
               //remove game
               delete game[phoneNumbers[POST.To].gameId];
 
-              if(board.isCheckmate){
+              if(currGame.board.isCheckmate){
                 respMessage = 'Checkmate. Game Over'
               }else {
                 respMessage = 'Stalemate. Gameover'     
@@ -143,7 +133,7 @@ app.post('/sms/reply/', function (req, res) {
 
                     //Error message
                     try{
-                      currGame.move(piece_pos, move_pos);
+                      currGame.board.move(piece_pos, move_pos);
                     }catch(err){
                       resp.message('Error'+err.message);
                       res.writeHead(200, { 'Content-Type':'text/xml' });
@@ -153,12 +143,12 @@ app.post('/sms/reply/', function (req, res) {
                     resp.message('Piece moved from '+piece_pos+' to '+move_pos);
 
                 }else if(smsBody.slice(0,3) === 'undo'){
-                  currGame.undo();
+                  currGame.board.undo();
                   resp.message('Move successfully undo');
                 }
               }else{
 
-                resp.message('Board\n' + renderBoard(gc.getStatus()));
+                respMessage = 'Board\n' + renderBoard(currGame.board.getStatus());
               }
             }
           }
