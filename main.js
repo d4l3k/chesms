@@ -131,7 +131,7 @@ app.post('/sms/reply/', function (req, res) {
               if(smsBody.length > 4){
 
                 console.log(smsBody);
-                console.log(smsBody.slice(1,4));
+                console.log(smsBody.slice(1,3));
                 //If we have a move command
                 if(smsBody.slice(1,3) === 'to'){
                   var piece_pos = smsBody.slice(0,1);
