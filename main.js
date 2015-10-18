@@ -3,6 +3,8 @@ var chess = require('chess'),
     express = require('express'),
     qs = require('querystring');
 
+var renderBoard = require('./lib/chess-renderer.js').renderBoard;
+
 twilioClient = twilio('AC7bb2f43a783c6c974a8571d786605fa2', process.env.AUTH_TOKEN);
 
 
@@ -16,6 +18,8 @@ var gc = chess.create(),
 
 // look at the valid moves
 status = gc.getStatus();
+
+console.log(renderBoard(status));
 
 // make a move
 m = gc.move('a4');
@@ -93,18 +97,29 @@ app.post('/sms/reply/', function (req, res) {
             var move_pos = smsBody.reverse().slice(0,1);
 
             curr_gc.move(piece_pos, move_pos);
+
+            //generate a TwiML response
+            var resp = new twilio.TwimlResponse();
+
+            resp.message('Piece moved from '+piece_pos+' to '+move_pos);
+
+            res.writeHead(200, { 'Content-Type':'text/xml' });
+            res.end(resp.toString());
           }
+        }else{
+          //generate a TwiML response
+          var resp = new twilio.TwimlResponse();
+
+          resp.message('Board\n' + renderBoard(gc.getStatus()));
+
+          res.writeHead(200, { 'Content-Type':'text/xml' });
+          res.end(resp.toString());
         }
       }
 
 
 
-      //generate a TwiML response
-      var resp = new twilio.TwimlResponse();
-      resp.message('hello, twilio!');
-
-      res.writeHead(200, { 'Content-Type':'text/xml' });
-      res.end(resp.toString());
+      
     }
     else {
       res.writeHead(403, { 'Content-Type':'text/plain' });
