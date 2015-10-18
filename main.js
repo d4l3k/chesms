@@ -45,7 +45,7 @@ twilio.sendMessage({
   }
 });
 */
-
+var phoneNumbers = {};
 app.post('/sms/reply/', function (req, res) {
   var body = '';
 
@@ -65,13 +65,47 @@ app.post('/sms/reply/', function (req, res) {
 
     //validateRequest returns true if the request originated from Twilio
     if (twilio.validateRequest(token, header, 'http://nicki.fn.lc:8183/sms/reply/', POST)) {
+      
+      if(phoneNumbers.hasOwnProperty(POST.To)){
+        phoneNumbers[POST.To].gc = chess.create();
+      }else{
+        var curr_gc = phoneNumbers[POST.To].gc;
+
+        var smsBody = POST.Body.replace(/^\s+|\s+$/g, '');
+
+        if(board.isCheckmate){
+          res.send('Checkmate. Game Over');
+          delete phoneNumbers[POST.To];
+          res.send('Start again?');    
+          
+        }else if(board.isStalemate){
+          res.send('Stalemate. Game Over');
+          delete phoneNumbers[POST.To];
+          res.send('Start again?');          
+        }
+
+        //if we have a valid message
+        if(smsBody === 6){
+
+          if(smsBody.slice(2,3) === 'to'){
+            var piece_pos = smsBody.slice(0,1);
+
+            var move_pos = smsBody.reverse().slice(0,1);
+
+            curr_gc.move(piece_pos, move_pos);
+          }
+        }
+      }
+
+
+
       //generate a TwiML response
       var resp = new twilio.TwimlResponse();
-    resp.message('hello, twilio!');
+      resp.message('hello, twilio!');
 
-    res.writeHead(200, { 'Content-Type':'text/xml' });
-    res.end(resp.toString());
-  }
+      res.writeHead(200, { 'Content-Type':'text/xml' });
+      res.end(resp.toString());
+    }
     else {
       res.writeHead(403, { 'Content-Type':'text/plain' });
       res.end('you are not twilio - take a hike.');
