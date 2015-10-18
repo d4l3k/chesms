@@ -82,14 +82,14 @@ app.post('/sms/reply/', function (req, res) {
             gameId: uuid.v1(),
           };
 
-          var currGameId = phoneNumbers[POST.To].gameId; 
+          var currGameId = phoneNumbers[POST.To].gameId;
 
           //create new game
           games[currGameId] = {
             board: chess.create(),
             players: [],
           };
-          games[currGameId].players.push(POST.To); 
+          games[currGameId].players.push(POST.To);
 
           respMessage = 'Add your friends phone # to start a game';
 
@@ -97,14 +97,14 @@ app.post('/sms/reply/', function (req, res) {
 
         else{
           var currGame = games[phoneNumbers[POST.To].gameId];
-          var smsBody = POST.Body.replace(/^\s+|\s+$/g, '');
+          var smsBody = POST.Body.replace(/^\s+|\s+$/g, '').toLowerCase();
 
           //Check if we should add opponent or not
           if(currGame.players.length === 1){
 
             //Add person
             if(smsBody.length === 10){
-              currGame.players.push(smsBody); 
+              currGame.players.push(smsBody);
               respMessage = 'Opponent with # '+smsBody+' successfully added';
             }else {
               respMessage = 'incorrect number. Try adding a correct friends #';
@@ -120,7 +120,7 @@ app.post('/sms/reply/', function (req, res) {
               if(currGame.board.isCheckmate){
                 respMessage = 'Checkmate. Game Over'
               }else {
-                respMessage = 'Stalemate. Gameover'     
+                respMessage = 'Stalemate. Gameover'
               }
             }
             //If we aren't losing
@@ -149,12 +149,12 @@ app.post('/sms/reply/', function (req, res) {
                       return;
                     }
                     console.log('piece moved');
-                    respMessage = 'Piece moved from '+piece_pos+' to '+move_pos;
+                    respMessage = 'Piece moved';
                 }else if(smsBody.split(' ')[0] === 'undo'){
                   currGame.board.undo();
                   respMessage = 'Move successfully undo';
                 }else if(smsBody.split(' ')[0] === 'moves'){
-                  
+
                   console.log(currGame.board.getStatus().notatedMoves);
                   // currGame.board.getStatus().notatedMoves.forEach(function(elem){
                   //   respMessage += elem;
@@ -171,7 +171,7 @@ app.post('/sms/reply/', function (req, res) {
         }
 
 
-      resp.message(respMessage); 
+      resp.message(respMessage);
       //Write headers
       res.writeHead(200, { 'Content-Type':'text/xml' });
       res.end(resp.toString());
