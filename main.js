@@ -139,7 +139,8 @@ app.post('/sms/reply/', function (req, res) {
 
                     //Error message
                     try{
-                      currGame.board.move(piece_pos, move_pos);
+                      currGame.board.move(piece_pos);
+                      currGame.board.move(move_pos);
                     }catch(err){
                       console.log(err);
                       resp.message('Error: '+err);
@@ -148,10 +149,10 @@ app.post('/sms/reply/', function (req, res) {
                       return;
                     }
                     console.log('piece moved');
-                    resp.message('Piece moved from '+piece_pos+' to '+move_pos);
+                    respMessage = 'Piece moved from '+piece_pos+' to '+move_pos;
                 }else if(smsBody.split(' ')[0] === 'undo'){
                   currGame.board.undo();
-                  resp.message('Move successfully undo');
+                  respMessage = 'Move successfully undo';
                 }else if(smsBody.split(' ')[0] === 'moves'){
                   
                   console.log(currGame.board.getStatus().notatedMoves);
