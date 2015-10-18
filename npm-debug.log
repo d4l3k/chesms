@@ -1,0 +1,276 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/Cellar/node/0.12.4/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   'twilio' ]
+2 info using npm@2.14.7
+3 info using node@v4.2.1
+4 verbose install initial load of /Volumes/untitled/Dev/chesms/package.json
+5 warn package.json @ No repository field.
+6 warn package.json @ No license field.
+7 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/ansi-regex/package.json
+8 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/ansi-styles/package.json
+9 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/asn1/package.json
+10 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/assert-plus/package.json
+11 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/async/package.json
+12 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/aws-sign2/package.json
+13 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/bl/package.json
+14 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/bluebird/package.json
+15 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/boom/package.json
+16 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/caseless/package.json
+17 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/chalk/package.json
+18 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/combined-stream/package.json
+19 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/commander/package.json
+20 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/core-util-is/package.json
+21 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/cryptiles/package.json
+22 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/ctype/package.json
+23 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/delayed-stream/package.json
+24 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/deprecate/package.json
+25 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/escape-string-regexp/package.json
+26 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/forever-agent/package.json
+27 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/form-data/package.json
+28 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/generate-function/package.json
+29 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/generate-object-property/package.json
+30 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/graceful-readlink/package.json
+31 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/har-validator/package.json
+32 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/has-ansi/package.json
+33 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/hawk/package.json
+34 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/hoek/package.json
+35 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/http-signature/package.json
+36 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/inherits/package.json
+37 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/is-my-json-valid/package.json
+38 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/is-property/package.json
+39 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/isarray/package.json
+40 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/isstream/package.json
+41 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/json-stringify-safe/package.json
+42 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/jsonpointer/package.json
+43 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/jwt-simple/package.json
+44 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/mime-db/package.json
+45 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/mime-types/package.json
+46 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/node-chess/package.json
+47 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/node-uuid/package.json
+48 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/oauth-sign/package.json
+49 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/pegjs/package.json
+50 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/q/package.json
+51 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/qs/package.json
+52 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/readable-stream/package.json
+53 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/request/package.json
+54 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/scmp/package.json
+55 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/sntp/package.json
+56 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/string.prototype.startswith/package.json
+57 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/string_decoder/package.json
+58 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/stringstream/package.json
+59 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/strip-ansi/package.json
+60 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/supports-color/package.json
+61 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/tough-cookie/package.json
+62 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/tunnel-agent/package.json
+63 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/twilio/package.json
+64 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/underscore/package.json
+65 verbose installManyTop reading scoped package data from /Volumes/untitled/Dev/chesms/node_modules/xtend/package.json
+66 info package.json asn1@0.1.11 No license field.
+67 info package.json assert-plus@0.1.5 No license field.
+68 info package.json aws-sign2@0.5.0 No license field.
+69 info package.json caseless@0.9.0 license should be a valid SPDX license expression
+70 info package.json combined-stream@0.0.7 No license field.
+71 info package.json ctype@0.5.3 No license field.
+72 info package.json delayed-stream@0.0.5 No license field.
+73 info package.json form-data@0.2.0 No license field.
+74 info package.json hawk@2.3.1 No license field.
+75 info package.json jwt-simple@0.1.0 No license field.
+76 info package.json node-uuid@1.4.3 No license field.
+77 info package.json oauth-sign@0.6.0 No license field.
+78 info package.json pegjs@0.8.0 No license field.
+79 info package.json q@0.9.7 license should be a valid SPDX license expression
+80 info package.json qs@2.4.2 No license field.
+81 info package.json scmp@0.0.3 license should be a valid SPDX license expression
+82 info package.json sntp@1.0.9 No license field.
+83 info package.json string.prototype.startswith@0.2.0 No license field.
+84 info package.json string_decoder@0.10.31 string_decoder is also the name of a node core module.
+85 info package.json tunnel-agent@0.4.1 No license field.
+86 info package.json xtend@4.0.0 No license field.
+87 verbose readDependencies loading dependencies from /Volumes/untitled/Dev/chesms/package.json
+88 verbose install twilio is installed as 2.5.1
+89 silly cache add args [ 'twilio@^2.5.1', null ]
+90 verbose cache add spec twilio@^2.5.1
+91 silly cache add parsed spec Result {
+91 silly cache add   raw: 'twilio@^2.5.1',
+91 silly cache add   scope: null,
+91 silly cache add   name: 'twilio',
+91 silly cache add   rawSpec: '^2.5.1',
+91 silly cache add   spec: '>=2.5.1 <3.0.0',
+91 silly cache add   type: 'range' }
+92 silly addNamed twilio@>=2.5.1 <3.0.0
+93 verbose addNamed ">=2.5.1 <3.0.0" is a valid semver range for twilio
+94 silly addNameRange { name: 'twilio', range: '>=2.5.1 <3.0.0', hasData: false }
+95 silly mapToRegistry name twilio
+96 silly mapToRegistry using default registry
+97 silly mapToRegistry registry https://registry.npmjs.org/
+98 silly mapToRegistry uri https://registry.npmjs.org/twilio
+99 verbose addNameRange registry:https://registry.npmjs.org/twilio not in flight; fetching
+100 verbose request uri https://registry.npmjs.org/twilio
+101 verbose request no auth needed
+102 info attempt registry request try #1 at 1:21:45 AM
+103 verbose request using bearer token for auth
+104 verbose request id bd3f0da6b219cba0
+105 http request GET https://registry.npmjs.org/twilio
+106 http 200 https://registry.npmjs.org/twilio
+107 verbose headers { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+107 verbose headers   etag: '"5QKPC4K59K34W0HAYPVKOU6KB"',
+107 verbose headers   'content-type': 'application/json',
+107 verbose headers   'cache-control': 'max-age=60',
+107 verbose headers   'content-length': '47757',
+107 verbose headers   'accept-ranges': 'bytes',
+107 verbose headers   date: 'Sun, 18 Oct 2015 08:21:46 GMT',
+107 verbose headers   via: '1.1 varnish',
+107 verbose headers   connection: 'keep-alive',
+107 verbose headers   'x-served-by': 'cache-sjc3127-SJC',
+107 verbose headers   'x-cache': 'MISS',
+107 verbose headers   'x-cache-hits': '0',
+107 verbose headers   'x-timer': 'S1445156506.468023,VS0,VE171',
+107 verbose headers   vary: 'Accept' }
+108 silly get cb [ 200,
+108 silly get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+108 silly get     etag: '"5QKPC4K59K34W0HAYPVKOU6KB"',
+108 silly get     'content-type': 'application/json',
+108 silly get     'cache-control': 'max-age=60',
+108 silly get     'content-length': '47757',
+108 silly get     'accept-ranges': 'bytes',
+108 silly get     date: 'Sun, 18 Oct 2015 08:21:46 GMT',
+108 silly get     via: '1.1 varnish',
+108 silly get     connection: 'keep-alive',
+108 silly get     'x-served-by': 'cache-sjc3127-SJC',
+108 silly get     'x-cache': 'MISS',
+108 silly get     'x-cache-hits': '0',
+108 silly get     'x-timer': 'S1445156506.468023,VS0,VE171',
+108 silly get     vary: 'Accept' } ]
+109 verbose get saving twilio to /Users/polydaic_mac/.npm/registry.npmjs.org/twilio/.cache.json
+110 silly addNameRange number 2 { name: 'twilio', range: '>=2.5.1 <3.0.0', hasData: true }
+111 silly addNameRange versions [ 'twilio',
+111 silly addNameRange   [ '0.0.0',
+111 silly addNameRange     '0.0.1',
+111 silly addNameRange     '0.0.3',
+111 silly addNameRange     '0.0.4',
+111 silly addNameRange     '0.2.0',
+111 silly addNameRange     '0.3.0',
+111 silly addNameRange     '0.4.0',
+111 silly addNameRange     '0.3.3',
+111 silly addNameRange     '0.4.1',
+111 silly addNameRange     '0.5.0',
+111 silly addNameRange     '0.6.0',
+111 silly addNameRange     '0.6.1',
+111 silly addNameRange     '0.6.2',
+111 silly addNameRange     '0.7.0',
+111 silly addNameRange     '0.7.1',
+111 silly addNameRange     '0.8.0',
+111 silly addNameRange     '0.8.1',
+111 silly addNameRange     '1.0.0',
+111 silly addNameRange     '1.0.1',
+111 silly addNameRange     '1.1.0',
+111 silly addNameRange     '1.1.1',
+111 silly addNameRange     '1.1.2',
+111 silly addNameRange     '1.1.3',
+111 silly addNameRange     '1.1.4',
+111 silly addNameRange     '1.2.0',
+111 silly addNameRange     '1.3.0',
+111 silly addNameRange     '1.4.0',
+111 silly addNameRange     '1.5.0',
+111 silly addNameRange     '1.6.0',
+111 silly addNameRange     '1.7.0',
+111 silly addNameRange     '1.8.0',
+111 silly addNameRange     '1.9.0',
+111 silly addNameRange     '1.10.0',
+111 silly addNameRange     '1.11.0',
+111 silly addNameRange     '1.11.1',
+111 silly addNameRange     '2.0.0',
+111 silly addNameRange     '2.1.0',
+111 silly addNameRange     '2.1.1',
+111 silly addNameRange     '2.2.0',
+111 silly addNameRange     '2.2.1',
+111 silly addNameRange     '2.3.0',
+111 silly addNameRange     '2.4.0',
+111 silly addNameRange     '2.5.1',
+111 silly addNameRange     '2.5.1-edge' ] ]
+112 silly addNamed twilio@2.5.1
+113 verbose addNamed "2.5.1" is a plain semver version for twilio
+114 silly mapToRegistry name twilio
+115 silly mapToRegistry using default registry
+116 silly mapToRegistry registry https://registry.npmjs.org/
+117 silly mapToRegistry uri https://registry.npmjs.org/twilio
+118 verbose addRemoteTarball https://registry.npmjs.org/twilio/-/twilio-2.5.1.tgz not in flight; adding
+119 verbose addRemoteTarball [ 'https://registry.npmjs.org/twilio/-/twilio-2.5.1.tgz',
+119 verbose addRemoteTarball   '4e8db66118a8d2d163a234df17deeac9a83566d3' ]
+120 info retry fetch attempt 1 at 1:21:46 AM
+121 info attempt registry request try #1 at 1:21:46 AM
+122 http fetch GET https://registry.npmjs.org/twilio/-/twilio-2.5.1.tgz
+123 verbose request using bearer token for auth
+124 http fetch 200 https://registry.npmjs.org/twilio/-/twilio-2.5.1.tgz
+125 silly fetchAndShaCheck shasum 4e8db66118a8d2d163a234df17deeac9a83566d3
+126 verbose addTmpTarball /var/folders/c2/f6b08tq17q75xxr5kbvmn8_h0000gn/T/npm-10893-cc1d06f2/registry.npmjs.org/twilio/-/twilio-2.5.1.tgz not in flight; adding
+127 verbose addTmpTarball already have metadata; skipping unpack for twilio@2.5.1
+128 silly cache afterAdd twilio@2.5.1
+129 verbose afterAdd /Users/polydaic_mac/.npm/twilio/2.5.1/package/package.json not in flight; writing
+130 verbose afterAdd /Users/polydaic_mac/.npm/twilio/2.5.1/package/package.json written
+131 silly install resolved [ { name: 'twilio',
+131 silly install resolved     description: 'A Twilio helper library',
+131 silly install resolved     version: '2.5.1',
+131 silly install resolved     author: { name: 'Kevin Whinnery', email: 'kevin.whinnery@gmail.com' },
+131 silly install resolved     contributors: [ [Object] ],
+131 silly install resolved     repository:
+131 silly install resolved      { type: 'git',
+131 silly install resolved        url: 'https://github.com/twilio/twilio-node.git' },
+131 silly install resolved     dependencies:
+131 silly install resolved      { request: '2.55.x',
+131 silly install resolved        underscore: '1.x',
+131 silly install resolved        'jwt-simple': '0.1.x',
+131 silly install resolved        q: '0.9.7',
+131 silly install resolved        scmp: '0.0.3',
+131 silly install resolved        deprecate: '^0.1.0',
+131 silly install resolved        'string.prototype.startswith': '^0.2.0' },
+131 silly install resolved     devDependencies: { express: '3.x', 'jasmine-node': '^1.14.5' },
+131 silly install resolved     scripts: { test: 'jasmine-node spec' },
+131 silly install resolved     main: './lib',
+131 silly install resolved     engines: { node: '>=0.8.0' },
+131 silly install resolved     license: 'MIT',
+131 silly install resolved     gitHead: '87c65a21dafc2c1e1e863c25d81e548d4926153a',
+131 silly install resolved     bugs: { url: 'https://github.com/twilio/twilio-node/issues' },
+131 silly install resolved     homepage: 'https://github.com/twilio/twilio-node',
+131 silly install resolved     _id: 'twilio@2.5.1',
+131 silly install resolved     _shasum: '4e8db66118a8d2d163a234df17deeac9a83566d3',
+131 silly install resolved     _from: 'twilio@>=2.5.1 <3.0.0',
+131 silly install resolved     _npmVersion: '2.7.4',
+131 silly install resolved     _nodeVersion: '0.12.2',
+131 silly install resolved     _npmUser: { name: 'senthnpm', email: 'sramakrishnan@twilio.com' },
+131 silly install resolved     dist:
+131 silly install resolved      { shasum: '4e8db66118a8d2d163a234df17deeac9a83566d3',
+131 silly install resolved        tarball: 'http://registry.npmjs.org/twilio/-/twilio-2.5.1.tgz' },
+131 silly install resolved     maintainers: [ [Object], [Object], [Object], [Object], [Object], [Object] ],
+131 silly install resolved     directories: {},
+131 silly install resolved     _resolved: 'https://registry.npmjs.org/twilio/-/twilio-2.5.1.tgz' } ]
+132 info install twilio@2.5.1 into /Volumes/untitled/Dev/chesms
+133 info installOne twilio@2.5.1
+134 verbose installOne of twilio to /Volumes/untitled/Dev/chesms not in flight; installing
+135 warn locking Error: EACCES: permission denied, open '/Users/polydaic_mac/.npm/_locks/twilio-e300c1a51c3e8161.lock'
+135 warn locking     at Error (native)
+135 warn locking  /Users/polydaic_mac/.npm/_locks/twilio-e300c1a51c3e8161.lock failed { [Error: EACCES: permission denied, open '/Users/polydaic_mac/.npm/_locks/twilio-e300c1a51c3e8161.lock']
+135 warn locking   errno: -13,
+135 warn locking   code: 'EACCES',
+135 warn locking   syscall: 'open',
+135 warn locking   path: '/Users/polydaic_mac/.npm/_locks/twilio-e300c1a51c3e8161.lock' }
+136 verbose stack Error: Attempt to unlock /Volumes/untitled/Dev/chesms/node_modules/twilio, which hasn't been locked
+136 verbose stack     at unlock (/usr/local/lib/node_modules/npm/lib/utils/locker.js:64:11)
+136 verbose stack     at cb (/usr/local/lib/node_modules/npm/lib/install.js:1018:5)
+136 verbose stack     at /usr/local/lib/node_modules/npm/lib/install.js:1022:20
+136 verbose stack     at /usr/local/lib/node_modules/npm/lib/utils/locker.js:39:7
+136 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/lockfile/lockfile.js:149:38)
+136 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/lockfile/lockfile.js:177:38
+136 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/graceful-fs/graceful-fs.js:230:16
+136 verbose stack     at FSReqWrap.oncomplete (fs.js:82:15)
+137 verbose cwd /Volumes/untitled/Dev/chesms
+138 error Darwin 13.4.0
+139 error argv "/usr/local/Cellar/node/0.12.4/bin/node" "/usr/local/bin/npm" "install" "twilio"
+140 error node v4.2.1
+141 error npm  v2.14.7
+142 error Attempt to unlock /Volumes/untitled/Dev/chesms/node_modules/twilio, which hasn't been locked
+143 error If you need help, you may report this error at:
+143 error     <https://github.com/npm/npm/issues>
+144 verbose exit [ 1, true ]

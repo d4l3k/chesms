@@ -49,7 +49,7 @@ twilio.sendMessage({
   }
 });
 */
-
+var phoneNumbers = {};
 app.post('/sms/reply/', function (req, res) {
   var body = '';
 
@@ -69,13 +69,65 @@ app.post('/sms/reply/', function (req, res) {
 
     //validateRequest returns true if the request originated from Twilio
     if (twilio.validateRequest(token, header, 'http://nicki.fn.lc:8183/sms/reply/', POST)) {
-      //generate a TwiML response
-      var resp = new twilio.TwimlResponse();
-    resp.message('Board\n' + renderBoard(gc.getStatus()));
+      
+      if(phoneNumbers.hasOwnProperty(POST.To)){
+        phoneNumbers[POST.To].gc = chess.create();
+      }else{
+        var curr_gc = phoneNumbers[POST.To].gc;
 
-    res.writeHead(200, { 'Content-Type':'text/xml' });
-    res.end(resp.toString());
-  }
+        var smsBody = POST.Body.replace(/^\s+|\s+$/g, '');
+
+        if(board.isCheckmate){
+          res.send('Checkmate. Game Over');
+          delete phoneNumbers[POST.To];
+          res.send('Start again?');    
+          
+        }else if(board.isStalemate){
+          res.send('Stalemate. Game Over');
+          delete phoneNumbers[POST.To];
+          res.send('Start again?');          
+        }
+
+        //generate a TwiML response
+        var resp = new twilio.TwimlResponse();
+
+        //if we have a valid message
+        if(smsBody === 6){
+
+          //If we have a move command
+          if(smsBody.slice(2,3) === 'to'){
+            var piece_pos = smsBody.slice(0,1);
+
+            var move_pos = smsBody.reverse().slice(0,1);
+
+            //Error message
+            try{
+              curr_gc.move(piece_pos, move_pos);
+            }catch(err){
+              resp.message('Error'+err.message); 
+            }else{
+              resp.message('Piece moved from '+piece_pos+' to '+move_pos);
+            }
+
+          }else if(smsBody.slice(0,3) === 'undo'){
+            curr_gc.undo();
+            resp.message('Successful undo');
+          }
+
+
+
+        }else{
+          resp.message('Board\n' + renderBoard(gc.getStatus()));
+        }
+      }
+
+      //Write headers
+      res.writeHead(200, { 'Content-Type':'text/xml' });
+      res.end(resp.toString());
+
+
+      
+    }
     else {
       res.writeHead(403, { 'Content-Type':'text/plain' });
       res.end('you are not twilio - take a hike.');
