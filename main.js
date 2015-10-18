@@ -155,10 +155,10 @@ app.post('/sms/reply/', function (req, res) {
                 }else if(smsBody.split(' ')[0] === 'moves'){
                   
                   console.log(currGame.board.getStatus().notatedMoves);
-                  currGame.board.getStatus().notatedMoves.forEach(function(elem){
-                    respMessage += elem;
-                    respMessage += '\n';
-                  });
+                  // currGame.board.getStatus().notatedMoves.forEach(function(elem){
+                  //   respMessage += elem;
+                  //   respMessage += '\n';
+                  // });
                 }
               }else{
 
