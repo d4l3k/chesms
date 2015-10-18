@@ -69,7 +69,7 @@ app.post('/sms/reply/', function (req, res) {
 
     //validateRequest returns true if the request originated from Twilio
     if (twilio.validateRequest(token, header, 'http://nicki.fn.lc:8183/sms/reply/', POST)) {
-      
+
       if(phoneNumbers.hasOwnProperty(POST.To)){
         phoneNumbers[POST.To].gc = chess.create();
       }else{
@@ -80,12 +80,12 @@ app.post('/sms/reply/', function (req, res) {
         if(board.isCheckmate){
           res.send('Checkmate. Game Over');
           delete phoneNumbers[POST.To];
-          res.send('Start again?');    
-          
+          res.send('Start again?');
+
         }else if(board.isStalemate){
           res.send('Stalemate. Game Over');
           delete phoneNumbers[POST.To];
-          res.send('Start again?');          
+          res.send('Start again?');
         }
 
         //generate a TwiML response
@@ -104,10 +104,11 @@ app.post('/sms/reply/', function (req, res) {
             try{
               curr_gc.move(piece_pos, move_pos);
             }catch(err){
-              resp.message('Error'+err.message); 
-            }else{
-              resp.message('Piece moved from '+piece_pos+' to '+move_pos);
+              resp.message('Error'+err.message);
+              return;
             }
+
+          resp.message('Piece moved from '+piece_pos+' to '+move_pos);
 
           }else if(smsBody.slice(0,3) === 'undo'){
             curr_gc.undo();
@@ -126,7 +127,7 @@ app.post('/sms/reply/', function (req, res) {
       res.end(resp.toString());
 
 
-      
+
     }
     else {
       res.writeHead(403, { 'Content-Type':'text/plain' });
