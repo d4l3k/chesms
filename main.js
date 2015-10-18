@@ -134,16 +134,16 @@ app.post('/sms/reply/', function (req, res) {
                 console.log(smsBody.slice(2,4));
                 //If we have a move command
                 if(smsBody.split(' ')[1] === 'to'){
-                  var piece_pos = smsBody.slice(0,1);
+                  var piece_pos = smsBody.split(' ')[0];
 
-                  var move_pos = smsBody.reverse().slice(0,1);
+                  var move_pos = smsBody.split(' ')[2];
 
                     //Error message
                     try{
                       currGame.board.move(piece_pos, move_pos);
                     }catch(err){
                       console.log(err);
-                      resp.message('Error: '+err.message);
+                      res.message('Error: '+err.message);
                       res.writeHead(200, { 'Content-Type':'text/xml' });
                       res.end(resp.toString());
                       return;
