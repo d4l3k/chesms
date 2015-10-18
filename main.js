@@ -153,7 +153,9 @@ app.post('/sms/reply/', function (req, res) {
                   currGame.board.undo();
                   resp.message('Move successfully undo');
                 }else if(smsBody.split(' ')[0] === 'moves'){
-                  currGame.board.getStatus().validMoves.forEach(function(elem){
+                  
+                  console.log(notatedMoves);
+                  currGame.board.getStatus().notatedMoves.forEach(function(elem){
                     respMessage += elem;
                     respMessage += '\n';
                   });
