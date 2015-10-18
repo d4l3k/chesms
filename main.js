@@ -3,6 +3,8 @@ var chess = require('chess'),
     express = require('express'),
     qs = require('querystring');
 
+var renderBoard = require('./lib/chess-renderer.js').renderBoard;
+
 twilioClient = twilio('AC7bb2f43a783c6c974a8571d786605fa2', process.env.AUTH_TOKEN);
 
 
@@ -16,6 +18,8 @@ var gc = chess.create(),
 
 // look at the valid moves
 status = gc.getStatus();
+
+console.log(renderBoard(status));
 
 // make a move
 m = gc.move('a4');
@@ -67,7 +71,7 @@ app.post('/sms/reply/', function (req, res) {
     if (twilio.validateRequest(token, header, 'http://nicki.fn.lc:8183/sms/reply/', POST)) {
       //generate a TwiML response
       var resp = new twilio.TwimlResponse();
-    resp.message('hello, twilio!');
+    resp.message('Board\n' + renderBoard(gc.getStatus()));
 
     res.writeHead(200, { 'Content-Type':'text/xml' });
     res.end(resp.toString());
