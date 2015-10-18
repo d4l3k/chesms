@@ -128,7 +128,7 @@ app.post('/sms/reply/', function (req, res) {
 
               //if we have a valid message
               //TODO: need to do proper validation
-              if(smsBody.length => 4){
+              if(smsBody.length >= 4){
 
                 console.log(smsBody);
                 console.log(smsBody.slice(2,4));
